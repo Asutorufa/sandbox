@@ -17,5 +17,5 @@ buildah run ${CONTAINER_NAME} pacman --noconfirm -S lutris zenity vulkan-radeon 
 # buildah run ${CONTAINER_NAME} mkdir -p /home/lutriser
 # buildah run ${CONTAINER_NAME} chown lutriser:lutriser /home/lutriser
 buildah run  ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
-buildah commit ${CONTAINER_NAME} arch_lutris:latest
+buildah commit ${CONTAINER_NAME} arch_sandbox_lutris:latest
 buildah rm ${CONTAINER_NAME}

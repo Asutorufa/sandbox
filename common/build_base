@@ -1,3 +1,4 @@
+#!/bin/bash
 CONTAINER_NAME=container_build_sandbox_base
 buildah from --name ${CONTAINER_NAME} archlinux:latest 
 buildah run ${CONTAINER_NAME} bash -c "echo 'Server = https://mirrors.bfsu.edu.cn/archlinux/\$repo/os/\$arch' > /etc/pacman.d/mirrorlist"

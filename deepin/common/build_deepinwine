@@ -18,5 +18,5 @@ buildah run ${CONTAINER_NAME} pacman --noconfirm -Rs base-devel
 buildah run  ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
 buildah run  ${CONTAINER_NAME} rm -rf /home/builder/.cache/
 # buildah run  ${CONTAINER_NAME} rm -rf /tmp/deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst
-buildah commit ${CONTAINER_NAME} arch_deepine:latest
+buildah commit ${CONTAINER_NAME} arch_sandbox_deepinwine:latest
 buildah rm ${CONTAINER_NAME}

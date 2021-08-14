@@ -45,5 +45,5 @@ podman run \
     -v ${current_path}/wechat_data:/root/WeChat\ Files:Z \
     -v ${current_path}/deepinwine_data:/root/.deepinwine:Z \
     -v ${current_path}/tmp_data:${current_path}/tmp_data:Z \
-    arch_deepine_wechat \
+    arch_sandbox_deepinwine_wechat \
     bash -c "/opt/apps/com.qq.weixin.spark/files/run.sh && bash"

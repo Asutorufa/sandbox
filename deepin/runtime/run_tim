@@ -40,6 +40,6 @@ podman run \
     -v ${current_path}/tim_data:/root/Tencent\ Files:Z \
     -v ${current_path}/deepinwine_data:/root/.deepinwine:Z \
     -v ${current_path}/tmp_data:${current_path}/tmp_data:Z \
-    arch_deepine_tim \
+    arch_sandbox_deepinwine_tim \
     bash -c "/opt/apps/com.qq.tim.spark/files/run.sh && bash"
 

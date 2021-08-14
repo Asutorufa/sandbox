@@ -23,5 +23,5 @@ podman run \
     -v ${current_path}/lutris_data/config/lutris:/root/.config/lutris:Z \
     -v /mnt/dataHDD/game/lutris:/root/lutris:Z \
     -e DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus" \
-    arch_lutris \
+    arch_sandbox_lutris \
     lutris
