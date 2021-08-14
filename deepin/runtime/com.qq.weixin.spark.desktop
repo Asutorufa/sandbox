@@ -1,0 +1,22 @@
+[Desktop Entry]
+Categories=Chat;
+Comment[en_US]=(podman sandbox)Tencent WeChat Client on Deepin Wine 5
+Comment=(podman sandbox)Tencent WeChat Client on Deepin Wine 5
+Encoding=UTF-8
+Exec=/mnt/dataHDD/sandbox/deepin/runtime/run_wechat.sh
+GenericName[en_US]=
+GenericName=
+Icon=/mnt/dataHDD/sandbox/deepin/runtime/com.qq.weixin.spark.svg
+MimeType=
+Name[en_US]=WeChat(podman sandbox)
+Name=WeChat(podman sandbox)
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-Created-By=zty199
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

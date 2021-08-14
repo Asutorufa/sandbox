@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Categories=Game;
+Comment=open source gaming platform
+Exec=/mnt/dataHDD/sandbox/lutris/arch_lutris.sh
+Icon=/mnt/dataHDD/sandbox/lutris/lutris.png
+Keywords=gaming;
+Name=Lutris
+StartupNotify=true

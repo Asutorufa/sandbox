@@ -1,0 +1,49 @@
+#!/bin/bash
+
+current_path=`dirname $(readlink -f $0)`
+
+podname=deepinwine_wechat
+
+pods=`podman ps -f "name=${podname},status=exited" --noheading -q -a`
+echo pods: \"$pods\"
+if test -z $pods;then
+    echo "no ${podname} pod exited"
+else
+    echo remove exited pods: $pod
+    podman rm $pods
+fi
+
+echo ""
+
+pods=`podman ps -f "name=${podname},status=running" --noheading -q -a`
+echo pods: \"$pods\"
+if test -z $pods;then
+    echo "no ${podname} pod already running"
+else
+    echo use already running ${podname} pod: $pods
+    podman exec -it -d $pods bash -c "nohup /opt/apps/com.qq.weixin.spark/files/run.sh > /dev/null"
+    exit 0
+fi
+
+echo "start a new ${podname} pods"
+xhost local:
+podman run \
+    -it --rm --name ${podname} -d \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:Z \
+    -v ~/.Xauthority:/root/.Xauthority:Z \
+    -v /dev/dri:/dev/dri:Z \
+    --device /dev/video0 \
+    --device /dev/snd \
+    -e DISPLAY \
+    -e XMODIFIERS=@im=fcitx \
+    -e QT_IM_MODULE=fcitx \
+    -e GTK_IM_MODULE=fcitx \
+    -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native:Z \
+    -e PULSE_SERVER=${XDG_RUNTIME_DIR}/pulse/native \
+    -v ${XDG_RUNTIME_DIR}/bus:${XDG_RUNTIME_DIR}/bus:Z \
+    -e DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus" \
+    -v ${current_path}/wechat_data:/root/WeChat\ Files:Z \
+    -v ${current_path}/deepinwine_data:/root/.deepinwine:Z \
+    -v ${current_path}/tmp_data:${current_path}/tmp_data:Z \
+    arch_deepine_wechat \
+    bash -c "/opt/apps/com.qq.weixin.spark/files/run.sh && bash"

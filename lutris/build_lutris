@@ -1,0 +1,21 @@
+#!/bin/bash
+CONTAINER_NAME=container_build_lutris
+buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_common:latest 
+# buildah run ${CONTAINER_NAME} bash -c "echo 'Server = https://mirrors.bfsu.edu.cn/archlinux/\$repo/os/\$arch' > /etc/pacman.d/mirrorlist"
+# buildah run ${CONTAINER_NAME} bash -c "echo '[multilib]' >> /etc/pacman.conf"
+# buildah run ${CONTAINER_NAME} bash -c "echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf"
+# buildah run ${CONTAINER_NAME} bash -c "echo '[archlinuxcn]' >> /etc/pacman.conf"
+# buildah run ${CONTAINER_NAME} bash -c "echo 'Server = https://mirrors.bfsu.edu.cn/archlinuxcn/\$arch' >> /etc/pacman.conf"
+# buildah run  ${CONTAINER_NAME} pacman-key --init
+# buildah run  ${CONTAINER_NAME} pacman --noconfirm -Syu
+# buildah run  ${CONTAINER_NAME} pacman --noconfirm -S lutris zenity lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader
+buildah run ${CONTAINER_NAME} pacman --noconfirm -S lutris zenity vulkan-radeon lib32-vulkan-radeon wine-staging lib32-giflib v4l-utils lib32-v4l-utils opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gst-plugins-base-libs
+# buildah run ${CONTAINER_NAME} useradd lutriser
+# buildah run ${CONTAINER_NAME} passwd -d lutriser
+# # Allow the builduser passwordless sudo
+# buildah run ${CONTAINER_NAME} bash -c "printf 'lutriser ALL=(ALL) ALL\n' | tee -a /etc/sudoers"
+# buildah run ${CONTAINER_NAME} mkdir -p /home/lutriser
+# buildah run ${CONTAINER_NAME} chown lutriser:lutriser /home/lutriser
+buildah run  ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
+buildah commit ${CONTAINER_NAME} arch_lutris:latest
+buildah rm ${CONTAINER_NAME}

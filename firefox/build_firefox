@@ -1,0 +1,7 @@
+#!/bin/bash
+CONTAINER_NAME=container_build_sandbox_firefox
+buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_base:latest
+buildah run  ${CONTAINER_NAME} pacman --noconfirm -S noto-fonts-cjk firefox
+buildah run  ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
+buildah commit ${CONTAINER_NAME} arch_sandbox_firefox:latest
+buildah rm ${CONTAINER_NAME}

@@ -1,0 +1,8 @@
+#!/bin/bash
+CONTAINER_NAME=container_build_deepinwine_tim
+buildah from --name ${CONTAINER_NAME} localhost/arch_deepine:latest
+buildah run ${CONTAINER_NAME} sudo -u builder paru --noconfirm -S com.qq.tim.spark
+buildah run  ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
+buildah run  ${CONTAINER_NAME} rm -rf /home/builder/.cache/
+buildah commit ${CONTAINER_NAME} arch_deepine_tim:latest
+buildah rm ${CONTAINER_NAME} 

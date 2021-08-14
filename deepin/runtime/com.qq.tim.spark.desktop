@@ -1,0 +1,23 @@
+[Desktop Entry]
+Categories=Chat;
+Comment[en_US]=(podman sandbox)Tencent TIM Client on Deepin Wine 5
+Comment=(podman sandbox)Tencent TIM Client on Deepin Wine 5
+Encoding=UTF-8
+Exec=/mnt/dataHDD/sandbox/deepin/runtime/run_tim.sh
+GenericName[en_US]=
+GenericName=
+Icon=/mnt/dataHDD/sandbox/deepin/runtime/com.qq.tim.spark.svg
+MimeType=
+Name[en_US]=TIM(podman sandbox)
+Name=TIM(podman sandbox)
+Name[zh_CN]=TIM(podman sandbox)
+Path=
+StartupNotify=true
+StartupWMClass=TIM
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
