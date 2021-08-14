@@ -1,6 +1,6 @@
 #!/bin/bash
 CONTAINER_NAME=container_build_lutris
-buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_common:latest 
+buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_common:latest
 # buildah run ${CONTAINER_NAME} bash -c "echo 'Server = https://mirrors.bfsu.edu.cn/archlinux/\$repo/os/\$arch' > /etc/pacman.d/mirrorlist"
 # buildah run ${CONTAINER_NAME} bash -c "echo '[multilib]' >> /etc/pacman.conf"
 # buildah run ${CONTAINER_NAME} bash -c "echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf"
@@ -16,6 +16,6 @@ buildah run ${CONTAINER_NAME} pacman --noconfirm -S lutris zenity vulkan-radeon 
 # buildah run ${CONTAINER_NAME} bash -c "printf 'lutriser ALL=(ALL) ALL\n' | tee -a /etc/sudoers"
 # buildah run ${CONTAINER_NAME} mkdir -p /home/lutriser
 # buildah run ${CONTAINER_NAME} chown lutriser:lutriser /home/lutriser
-buildah run  ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
+buildah run ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
 buildah commit ${CONTAINER_NAME} arch_sandbox_lutris:latest
 buildah rm ${CONTAINER_NAME}

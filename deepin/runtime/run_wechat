@@ -1,12 +1,12 @@
 #!/bin/bash
 
-current_path=`dirname $(readlink -f $0)`
+current_path=$(dirname $(readlink -f $0))
 
 podname=deepinwine_wechat
 
-pods=`podman ps -f "name=${podname},status=exited" --noheading -q -a`
+pods=$(podman ps -f "name=${podname},status=exited" --noheading -q -a)
 echo pods: \"$pods\"
-if test -z $pods;then
+if test -z $pods; then
     echo "no ${podname} pod exited"
 else
     echo remove exited pods: $pod
@@ -15,9 +15,9 @@ fi
 
 echo ""
 
-pods=`podman ps -f "name=${podname},status=running" --noheading -q -a`
+pods=$(podman ps -f "name=${podname},status=running" --noheading -q -a)
 echo pods: \"$pods\"
-if test -z $pods;then
+if test -z $pods; then
     echo "no ${podname} pod already running"
 else
     echo use already running ${podname} pod: $pods

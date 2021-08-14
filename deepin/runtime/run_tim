@@ -1,10 +1,10 @@
 #!/bin/bash
-current_path=`dirname $(readlink -f $0)`
+current_path=$(dirname $(readlink -f $0))
 
 podname=deepinwine_tim
 
-pods=`podman ps -f "name=${podname},status=exited" --noheading -q -a`
-if test -z $pods;then
+pods=$(podman ps -f "name=${podname},status=exited" --noheading -q -a)
+if test -z $pods; then
     echo "no ${podname} pod exited"
 else
     echo remove exited pods: $pod
@@ -13,8 +13,8 @@ fi
 
 echo ""
 
-pods=`podman ps -f "name=${podname},status=running" --noheading -q -a`
-if test -z $pods;then
+pods=$(podman ps -f "name=${podname},status=running" --noheading -q -a)
+if test -z $pods; then
     echo "no ${podname} pod already running"
 else
     echo use already running ${podname} pod: $pods
@@ -42,4 +42,3 @@ podman run \
     -v ${current_path}/tmp_data:${current_path}/tmp_data:Z \
     arch_sandbox_deepinwine_tim \
     bash -c "/opt/apps/com.qq.tim.spark/files/run.sh && bash"
-

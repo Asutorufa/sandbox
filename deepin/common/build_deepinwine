@@ -1,9 +1,9 @@
 #!/bin/bash
 CONTAINER_NAME=container_build_deepinwine
-buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_common:latest 
+buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_common:latest
 # buildah copy ${CONTAINER_NAME} deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst
 # buildah copy ${CONTAINER_NAME} deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst
-buildah run ${CONTAINER_NAME} pacman --noconfirm -S archlinuxcn-keyring 
+buildah run ${CONTAINER_NAME} pacman --noconfirm -S archlinuxcn-keyring
 buildah run ${CONTAINER_NAME} pacman --noconfirm -S sudo paru base-devel
 buildah run ${CONTAINER_NAME} useradd builder
 buildah run ${CONTAINER_NAME} passwd -d builder
@@ -15,8 +15,8 @@ buildah run ${CONTAINER_NAME} sudo -u builder paru --noconfirm -S deepin-wine5 d
 # buildah run ${CONTAINER_NAME} pacman --noconfirm -S deepin-wine-helper deepin-wine-plugin deepin-wine-plugin-virtual
 # buildah run ${CONTAINER_NAME} pacman --noconfirm -U /tmp/deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst
 buildah run ${CONTAINER_NAME} pacman --noconfirm -Rs base-devel
-buildah run  ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
-buildah run  ${CONTAINER_NAME} rm -rf /home/builder/.cache/
+buildah run ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
+buildah run ${CONTAINER_NAME} rm -rf /home/builder/.cache/
 # buildah run  ${CONTAINER_NAME} rm -rf /tmp/deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst
 buildah commit ${CONTAINER_NAME} arch_sandbox_deepinwine:latest
 buildah rm ${CONTAINER_NAME}
