@@ -1,0 +1,27 @@
+#!/bin/bash
+current_path=$(dirname $(readlink -f $0))
+
+xhost local:
+podman run \
+    -it --rm --name sandbox_lutris \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:Z \
+    -v ~/.Xauthority:/root/.Xauthority:Z \
+    -v /dev/dri:/dev/dri:Z \
+    --device /dev/video0 \
+    --device /dev/snd \
+    -e DISPLAY \
+    --userns=host \
+    -u steam \
+    -e http_proxy=http://10.0.2.2:8188 \
+    -e https_proxy=http://10.0.2.2:8188 \
+    --net slirp4netns:allow_host_loopback=true \
+    -e XMODIFIERS=@im=fcitx \
+    -e QT_IM_MODULE=fcitx \
+    -e GTK_IM_MODULE=fcitx \
+    -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native:Z \
+    -e PULSE_SERVER=${XDG_RUNTIME_DIR}/pulse/native \
+    -v ${XDG_RUNTIME_DIR}/bus:${XDG_RUNTIME_DIR}/bus:Z \
+    --mount type=bind,source=/home/asutorufa/.local/share/Steam,target=/home/steam/.local/share/Steam,rw=true \
+    -e DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus" \
+    arch_sandbox_steam \
+    bash

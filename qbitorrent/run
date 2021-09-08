@@ -1,0 +1,13 @@
+#!/bin/bash
+podman run --rm \
+  --name=qbittorrent \
+  -e PUID=0 \
+  -e PGID=0 \
+  -e WEBUI_PORT=8080 \
+  -p 6881:6881 \
+  -p 6881:6881/udp \
+  -p 8080:8080 \
+  -v ${PWD}/data:/config:Z \
+  -v /mnt/share/Videos:/mnt/share/Videos:Z \
+  -v /mnt/share/music:/mnt/share/music:Z \
+  docker.io/linuxserver/qbittorrent 
