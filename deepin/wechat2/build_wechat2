@@ -1,0 +1,13 @@
+#!/bin/bash
+CONTAINER_NAME=container_build_deepinwine_wechat
+buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_deepinwine:latest
+# buildah copy ${CONTAINER_NAME} com.qq.weixin.spark-3.2.1.127spark0-1-x86_64.pkg.tar.zst /tmp/com.qq.weixin.spark-3.2.1.127spark0-1-x86_64.pkg.tar.zst
+buildah run ${CONTAINER_NAME} pacman --noconfirm -S wqy-microhei base-devel
+buildah run ${CONTAINER_NAME} sudo -u builder paru --noconfirm -S deepin-wine-wechat
+# buildah run ${CONTAINER_NAME} pacman --noconfirm -U /tmp/com.qq.weixin.spark-3.2.1.127spark0-1-x86_64.pkg.tar.zst
+# buildah run ${CONTAINER_NAME} pacman --noconfirm -Rs base-devel
+buildah run ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
+buildah run ${CONTAINER_NAME} rm -rf /home/builder/.cache/
+# buildah run  ${CONTAINER_NAME} rm -rf /tmp/com.qq.weixin.spark-3.2.1.127spark0-1-x86_64.pkg.tar.zst
+buildah commit ${CONTAINER_NAME} arch_sandbox_deepinwine_wechat:latest
+buildah rm ${CONTAINER_NAME}
