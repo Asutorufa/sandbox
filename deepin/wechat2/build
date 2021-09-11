@@ -1,8 +1,6 @@
-#!/bin/bash
-CONTAINER_NAME=container_build_deepinwine
+ #!/bin/bash
+CONTAINER_NAME=container_build_deepinwine_wechat2
 buildah from --name ${CONTAINER_NAME} localhost/arch_sandbox_common:latest
-# buildah copy ${CONTAINER_NAME} deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst
-# buildah copy ${CONTAINER_NAME} deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst
 buildah run ${CONTAINER_NAME} pacman --noconfirm -S archlinuxcn-keyring
 buildah run ${CONTAINER_NAME} pacman --noconfirm -S sudo paru base-devel
 buildah run ${CONTAINER_NAME} useradd builder
@@ -11,18 +9,14 @@ buildah run ${CONTAINER_NAME} passwd -d builder
 buildah run ${CONTAINER_NAME} bash -c "printf 'builder ALL=(ALL) ALL\n' | tee -a /etc/sudoers"
 buildah run ${CONTAINER_NAME} mkdir -p /home/builder
 buildah run ${CONTAINER_NAME} chown builder:builder /home/builder
-
-# 包已升级，等aur更新
 buildah run ${CONTAINER_NAME} sudo -u builder  mkdir -p /tmp/deepin-udis86 
 buildah copy ${CONTAINER_NAME} ${PWD}/PKGBUILD /tmp/deepin-udis86/PKGBUILD
 buildah run ${CONTAINER_NAME} sudo -u builder bash -c "cd /tmp/deepin-udis86 && paru --noconfirm -Ui"
-
-buildah run ${CONTAINER_NAME} sudo -u builder paru --noconfirm -S deepin-wine5 deepin-wine-helper deepin-wine-plugin deepin-wine-plugin-virtual
-
+buildah run ${CONTAINER_NAME} sudo -u builder paru --noconfirm -S deepin-wine-wechat
+# buildah run ${CONTAINER_NAME} pacman --noconfirm -S deepin-wine-helper deepin-wine-plugin deepin-wine-plugin-virtual
 # buildah run ${CONTAINER_NAME} pacman --noconfirm -Rs base-devel
 buildah run ${CONTAINER_NAME} rm -rf /var/cache/pacman/pkg/
 buildah run ${CONTAINER_NAME} rm -rf /home/builder/.cache/
-buildah run ${CONTAINER_NAME} rm -rf /tmp/deepin-udis86
-
-buildah commit ${CONTAINER_NAME} arch_sandbox_deepinwine:latest
+# buildah run  ${CONTAINER_NAME} rm -rf /tmp/deepin-wine5-i386-5.0.16-1-x86_64.pkg.tar.zst /tmp/deepin-wine5-5.0.16-1-x86_64.pkg.tar.zst
+buildah commit ${CONTAINER_NAME} arch_sandbox_deepinwine_wechat2:latest
 buildah rm ${CONTAINER_NAME}
